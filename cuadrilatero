@@ -1,10 +1,10 @@
 def identificar_cuadrilatero(lados):
-    lados_ordenados = sorted(lados)  # Ordenar los lados de menor a mayor
-    a, b, c, d = lados_ordenados  # Asignar los lados a variables
+    lados_ordenados = sorted(lados)  
+    a, b, c, d = lados_ordenados  
 
-    if a == b == c == d:  # Si todos los lados son iguales, es un cuadrado
+    if a == b == c == d:  
         return "Cuadrado"
-    elif a == b and c == d:  # Si los lados opuestos son iguales, es un rectángulo
+    elif a == b and c == d: 
         return "Rectángulo"
     else:
         return "Otros cuadriláteros"
