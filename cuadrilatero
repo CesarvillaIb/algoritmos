@@ -1,0 +1,23 @@
+def identificar_cuadrilatero(lados):
+    lados_ordenados = sorted(lados)  # Ordenar los lados de menor a mayor
+    a, b, c, d = lados_ordenados  # Asignar los lados a variables
+
+    if a == b == c == d:  # Si todos los lados son iguales, es un cuadrado
+        return "Cuadrado"
+    elif a == b and c == d:  # Si los lados opuestos son iguales, es un rectángulo
+        return "Rectángulo"
+    else:
+        return "Otros cuadriláteros"
+
+def main():
+    lados = []
+    for i in range(4):
+        lado = float(input(f"Ingrese la medida del lado {i+1}: "))
+        lados.append(lado)
+
+    tipo_cuadrilatero = identificar_cuadrilatero(lados)
+    print("El cuadrilátero ingresado es:", tipo_cuadrilatero)
+
+if __name__ == "__main__":
+    main()
+
