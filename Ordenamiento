@@ -1,0 +1,95 @@
+def ordenamiento_burbuja(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+def ordenamiento_insercion(arr):
+    for i in range(1, len(arr)):
+        clave = arr[i]
+        j = i-1
+        while j >= 0 and clave < arr[j]:
+            arr[j+1] = arr[j]
+            j -= 1
+        arr[j+1] = clave
+    return arr
+
+def ordenamiento_seleccion(arr):
+    for i in range(len(arr)):
+        indice_min = i
+        for j in range(i+1, len(arr)):
+            if arr[j] < arr[indice_min]:
+                indice_min = j
+        arr[i], arr[indice_min] = arr[indice_min], arr[i]
+    return arr
+
+def ordenamiento_rapido(arr):
+    if len(arr) <= 1:
+        return arr
+    pivote = arr[len(arr) // 2]
+    izquierda = [x for x in arr if x < pivote]
+    medio = [x for x in arr if x == pivote]
+    derecha = [x for x in arr if x > pivote]
+    return ordenamiento_rapido(izquierda) + medio + ordenamiento_rapido(derecha)
+
+def ordenamiento_mezcla(arr):
+    if len(arr) <= 1:
+        return arr
+
+    def mezclar(izquierda, derecha):
+        resultado = []
+        i = j = 0
+        while i < len(izquierda) and j < len(derecha):
+            if izquierda[i] < derecha[j]:
+                resultado.append(izquierda[i])
+                i += 1
+            else:
+                resultado.append(derecha[j])
+                j += 1
+        resultado.extend(izquierda[i:])
+        resultado.extend(derecha[j:])
+        return resultado
+
+    medio = len(arr) // 2
+    izquierda = ordenamiento_mezcla(arr[:medio])
+    derecha = ordenamiento_mezcla(arr[medio:])
+    return mezclar(izquierda, derecha)
+
+def heapify(arr, n, i):
+    mayor = i
+    izquierda = 2 * i + 1
+    derecha = 2 * i + 2
+
+    if izquierda < n and arr[izquierda] > arr[mayor]:
+        mayor = izquierda
+
+    if derecha < n and arr[derecha] > arr[mayor]:
+        mayor = derecha
+
+    if mayor != i:
+        arr[i], arr[mayor] = arr[mayor], arr[i]
+        heapify(arr, n, mayor)
+
+def ordenamiento_monton(arr):
+    n = len(arr)
+    for i in range(n//2 - 1, -1, -1):
+        heapify(arr, n, i)
+    for i in range(n-1, 0, -1):
+        arr[i], arr[0] = arr[0], arr[i]
+        heapify(arr, i, 0)
+    return arr
+
+def main():
+    arr = [64, 34, 25, 12, 22, 11, 90]
+    print("Arreglo original:", arr)
+    print("Ordenamiento Burbuja:", ordenamiento_burbuja(arr.copy()))
+    print("Ordenamiento Inserción:", ordenamiento_insercion(arr.copy()))
+    print("Ordenamiento Selección:", ordenamiento_seleccion(arr.copy()))
+    print("Ordenamiento Rápido:", ordenamiento_rapido(arr.copy()))
+    print("Ordenamiento Mezcla:", ordenamiento_mezcla(arr.copy()))
+    print("Ordenamiento Montón:", ordenamiento_monton(arr.copy()))
+
+if __name__ == "__main__":
+    main()
